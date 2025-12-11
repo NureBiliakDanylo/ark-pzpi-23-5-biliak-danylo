@@ -1,11 +1,7 @@
 PRAGMA foreign_keys = ON;
 
--- ============================================
--- 1. Таблица сенсоров
--- ============================================
-
 CREATE TABLE IF NOT EXISTS sensors (
-    id TEXT PRIMARY KEY,                -- UUID задаётся на уровне приложения
+    id TEXT PRIMARY KEY,
     name TEXT,
     location TEXT,
     api_key TEXT UNIQUE NOT NULL,
@@ -15,10 +11,6 @@ CREATE TABLE IF NOT EXISTS sensors (
 
 CREATE INDEX IF NOT EXISTS idx_sensors_api_key ON sensors(api_key);
 
-
--- ============================================
--- 2. Показания IoT-сенсоров
--- ============================================
 
 CREATE TABLE IF NOT EXISTS sensor_readings (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -35,9 +27,6 @@ CREATE INDEX IF NOT EXISTS idx_sensor_readings_time ON sensor_readings(created_a
 CREATE INDEX IF NOT EXISTS idx_sensor_readings_sensor ON sensor_readings(sensor_id);
 
 
--- ============================================
--- 3. Связка сенсора с ближайшим городом
--- ============================================
 
 CREATE TABLE IF NOT EXISTS sensor_locations (
     sensor_id TEXT PRIMARY KEY,
@@ -53,9 +42,6 @@ CREATE TABLE IF NOT EXISTS sensor_locations (
 CREATE INDEX IF NOT EXISTS idx_sensor_locations_city ON sensor_locations(city_name);
 
 
--- ============================================
--- 6. Локальный прогноз
--- ============================================
 
 CREATE TABLE IF NOT EXISTS local_forecasts (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
